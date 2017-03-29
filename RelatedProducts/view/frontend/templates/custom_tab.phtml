@@ -1,0 +1,63 @@
+<?php 
+$blockObj= $block->getLayout()->createBlock('Catalipsis\RelatedProducts\Block\RelatedBlock',"product.info.details.related");
+$relatedProductInfo = $blockObj->getRelatedProduct();
+$relatedCategoryInfo = $blockObj->getRelatedCategories();
+$firstCategoryName = "";
+$firstCategoryUrl = "";
+$secondCategoryName = "";
+$secondCategoryUrl = "";
+
+if (is_array($relatedCategoryInfo)) {
+	foreach ($relatedCategoryInfo as $relatedCategory) {
+		if ($relatedCategory['type'] == 'category1') {
+			$firstCategoryName = $relatedCategory['name'];
+			$firstCategoryUrl = $relatedCategory['url'];
+		}
+
+		if ($relatedCategory['type'] == 'category2') {
+			$secondCategoryName = $relatedCategory['name'];
+			$secondCategoryUrl = $relatedCategory['url'];
+		}
+	}
+}
+//print_r($relatedCategoryInfo);
+if(is_array($relatedProductInfo)):?>
+	<h2>
+		Relative Product: 
+		<a href="<?php echo $relatedProductInfo['url']; ?>">
+			<?php echo $relatedProductInfo['name'] ?>
+		</a>
+	</h2>
+<?php else:?>
+	<h2> <?php echo $relatedProductInfo ?> </h2>
+<?php endif;?>
+
+
+<?php if($firstCategoryName != ""):?>
+	<h2>
+		Relative Category 1: 
+		<a href="<?php echo $firstCategoryUrl; ?>">
+			<?php echo $firstCategoryName; ?>
+		</a>
+	</h2>
+<?php endif;?>
+<?php if($secondCategoryName != ""):?>
+	<h2>
+		Relative Category 2: 
+		<a href="<?php echo $secondCategoryUrl; ?>">
+			<?php echo $secondCategoryName; ?>
+		</a>
+	</h2>
+<?php endif;?>
+<?php if(empty($relatedCategoryInfo)):?>
+	<h2> <?php echo "Item doesn't have a related categories" ?> </h2>
+<?php endif;?>
+
+
+
+
+
+
+
+ 
+ 
